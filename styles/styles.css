@@ -1,0 +1,42 @@
+:root {
+  --dark-gray: #7c7c7c;
+  --light-gray: #bdbdbd;
+}
+
+body {
+  background-color: var(--light-gray);
+}
+
+#content {
+  display: grid;
+  grid-template-rows: auto auto;
+}
+
+#head {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: 'counter clock';
+  padding: 6px;
+}
+
+#mine-count {
+  display: flex;
+  grid-area: counter;
+}
+
+#clock {
+  display: flex;
+  grid-area: clock;
+  justify-content: flex-end;
+}
+
+#board {
+  display: grid;
+}
+
+#content,
+#head,
+#board {
+  border: 2px solid var(--dark-gray);
+  background-color: var(--light-gray);
+}
