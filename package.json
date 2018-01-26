@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "webpack-dev-server",
-    "build": "webpack",
+    "build": "webpack --config webpack.config.prod.js -p",
     "lint": "tslint --project ."
   },
   "keywords": [],
@@ -16,12 +16,16 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.96",
+    "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.3.1",
     "fork-ts-checker-webpack-plugin": "^0.3.0",
+    "lodash-webpack-plugin": "^0.11.4",
     "path": "^0.12.7",
     "ts-loader": "^3.3.1",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.5.0",
     "typescript": "^2.6.2",
+    "uglifyjs-webpack-plugin": "^1.1.6",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"
   }
