@@ -8,5 +8,6 @@ export default class MinePiece extends Piece {
 
   leftClickImpl(): void {
     this.visibleCssClass = 'field-mine';
+    this.minesweeper.gameOver = true;
   }
 }
