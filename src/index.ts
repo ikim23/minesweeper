@@ -1,6 +1,9 @@
 import * as _ from 'lodash';
 import Minesweeper from './Minesweeper';
 import Board from './dom/Board';
+import MineCounter from './dom/MineCounter';
+import Clock from './dom/Clock';
+import GameStateListener from './dom/GameStateListener';
 
 const segments = document.getElementsByClassName('segment');
 const setSegmentSize = () => {
@@ -15,6 +18,11 @@ const setSegmentSize = () => {
 setSegmentSize();
 window.addEventListener('resize', setSegmentSize);
 
-const minesweeper = new Minesweeper(5, 10);
 const board = new Board();
+const counter = new MineCounter();
+const clock = new Clock();
+const listener = new GameStateListener(counter, clock);
+const minesweeper = new Minesweeper(5, 10, listener);
+
 board.create(minesweeper.pieces);
+clock.start();

@@ -26,6 +26,7 @@ export default abstract class Piece {
       this.isClickable = false;
       this.leftClickImpl();
       this.listener.update(this);
+      this.minesweeper.updateListener();
     }
   }
   rightClick = () => {
@@ -36,6 +37,7 @@ export default abstract class Piece {
         this.visibleCssClass = 'field';
       }
       this.listener.update(this);
+      this.minesweeper.updateListener();
     }
   }
 
