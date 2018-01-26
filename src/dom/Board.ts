@@ -11,6 +11,7 @@ export default class Board {
   }
 
   create(pieces: Piece[][]) {
+    this.board.innerHTML = '';
     this.board.style.gridTemplateRows = `repeat(${pieces.length}, auto)`;
     this.board.style.gridTemplateColumns = `repeat(${pieces[0].length}, auto)`;
     this.fields = _.map(_.flatten(pieces), this.createField);

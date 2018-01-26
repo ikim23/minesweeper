@@ -18,14 +18,8 @@ export default class Minesweeper {
   gameOver: boolean;
   listener: GameStateListener;
 
-  constructor(rows: number, cols: number, listener: GameStateListener) {
-    this.rows = rows;
-    this.cols = cols;
-    this.mineCount = _.ceil(rows * cols * 0.12);
-    this.gameOver = false;
+  constructor(listener: GameStateListener) {
     this.listener = listener;
-    this.create();
-    this.updateListener();
   }
 
   showAllEmpty = (p: Position) => {
@@ -41,7 +35,9 @@ export default class Minesweeper {
   }
 
   updateListener = () => {
-    this.checkGameOver();
+    if (!this.gameOver) {
+      this.gameOver = this.allPiecesCorrect();
+    }
     this.listener.update(this);
   }
 
@@ -50,15 +46,19 @@ export default class Minesweeper {
     return this.mineCount - flagCount;
   }
 
-  private checkGameOver = () => {
-    if (!this.gameOver) {
-      this.gameOver = _.every(_.flatten(this.pieces), piece => piece.isCorrent());
-    }
+  allPiecesCorrect = (): boolean => {
+    return _.every(_.flatten(this.pieces), piece => piece.isCorrent());
   }
 
-  private create = () => {
-    this.pieces = _.times(this.rows, row => _.times(this.cols, col => new EmptyPiece(row, col, this)));
+  create = (rows: number, cols: number): Piece[][] => {
+    this.rows = rows;
+    this.cols = cols;
+    this.mineCount = _.ceil(rows * cols * 0.12);
+    this.gameOver = false;
+    this.pieces = _.times(rows, row => _.times(cols, col => new EmptyPiece(row, col, this)));
     this.setMines();
+    this.listener.setCounter(this.mineCount);
+    return this.pieces;
   }
 
   private setMines = () => {
