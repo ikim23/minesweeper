@@ -16,6 +16,7 @@ board.create(minesweeper.create(5, 10));
 
 const smile = document.getElementById('smile');
 smile.addEventListener('click', () => {
+  smile.classList = 'smile';
   clock.stop();
   clock.draw();
   board.create(minesweeper.create(5, 10));
