@@ -1,11 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:3000',
-    'webpack/hot/only-dev-server',
     path.join(__dirname, 'src', 'index.ts'),
   ],
   resolve: {
@@ -28,31 +30,24 @@ module.exports = {
     ],
   },
   output: {
-    publicPath: '/static/',
+    publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'static/bundle.js',
   },
   plugins: [
     new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify('development'),
-		}),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new ForkTsCheckerWebpackPlugin({
-      tslint: true,
-      checkSyntacticErrors: true,
-      watch: [path.join(__dirname, 'src')],
+			'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-  ],
-  devtool: 'inline-source-map',
-  devServer: {
-    host: '0.0.0.0',
-    port: 3000,
-    historyApiFallback: true,
-    hot: true,
-    watchOptions: {
-      poll: true,
-    },
-  },
+    new CleanWebpackPlugin(['dist']),
+		new CopyWebpackPlugin([
+      'index.html',
+      { from: 'public', to: 'public' },
+    ]),
+    new LodashModuleReplacementPlugin(),
+    new UglifyJsPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      tslint: false,
+      checkSyntacticErrors: false,
+    }),
+  ]
 };
