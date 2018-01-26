@@ -24,11 +24,12 @@
 }
 
 .field-mine {
+  background-color: red;
   background-image: url('../svg/mine.svg');
 }
 
 .field-empty {
-  background-color: #bdbdbd;
+  background-image: url('../svg/field-empty.svg');
 }
 
 .field-1 {

@@ -12,6 +12,13 @@ body {
   grid-template-rows: auto auto;
 }
 
+#content,
+#head,
+#board {
+  border: 2px solid var(--dark-gray);
+  background-color: var(--light-gray);
+}
+
 #head {
   display: grid;
   grid-template-columns: auto auto;
@@ -32,11 +39,6 @@ body {
 
 #board {
   display: grid;
+  background-color: var(--dark-gray);
 }
 
-#content,
-#head,
-#board {
-  border: 2px solid var(--dark-gray);
-  background-color: var(--light-gray);
-}

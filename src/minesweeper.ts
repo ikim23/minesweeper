@@ -1,116 +1,76 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-lonely-if */
-import _ from 'lodash';
+import * as _ from 'lodash';
+import Piece from './pieces/Piece';
+import MinePiece from './pieces/MinePiece';
+import EmptyPiece from './pieces/EmptyPiece';
+import NumberPiece from './pieces/NumberPiece';
+
+interface Position {
+  x: number;
+  y: number;
+}
 
 export default class Minesweeper {
-  constructor(rows, cols) {
+  rows: number;
+  cols: number;
+  mineCount: number;
+  pieces: Piece[][];
+  gameOver: boolean;
+
+  constructor(rows: number, cols: number) {
     this.rows = rows;
     this.cols = cols;
     this.mineCount = _.ceil(rows * cols * 0.12);
-    this.fields = [];
     this.gameOver = false;
-    this.validPosition = this.validPosition.bind(this);
-    this.createFields();
+    this.create();
+  }
+
+  showAllEmpty = (p: Position) => {
+    const piece = this.pieces[p.x][p.y];
+    if (piece instanceof NumberPiece) {
+      piece.leftClick();
+    } else  if (piece instanceof EmptyPiece) {
+      piece.leftClick();
+      const neighbours = this.getNeighbours(p);
+      const clickable = _.filter(neighbours, ({x, y}) => this.pieces[x][y].isClickable);
+      _.each(clickable, this.showAllEmpty);
+    }
+  }
+
+  private create = () => {
+    this.pieces = _.times(this.rows, row => _.times(this.cols, col => new EmptyPiece(row, col, this)));
     this.setMines();
   }
 
-  click(x, y, leftClick = true) {
-    const field = this.fields[x][y];
-    if (this.gameOver || !field.clickable) return false;
-    if (field.type === 'mine') {
-      this.clickMine(field, leftClick);
-    } else if (_.isNumber(field.type)) {
-      this.clickNumberField(field, leftClick);
-    } else {
-
-    }
-    return true;
-  }
-
-  clickMine(mine, leftClick) {
-    if (leftClick) {
-      if (mine.isCorrect) {
-        mine.className = 'field';
-        mine.isCorrect = false;
-      } else {
-        this.gameOver = true;
-        mine.className = 'field-mine';
-      }
-    } else {
-      if (mine.className === 'field') {
-        mine.className = 'field-flag';
-        mine.isCorrect = true;
-      } else {
-        mine.className = 'field';
-        mine.isCorrect = false;
-      }
-    }
-  }
-
-  clickNumberField(field, leftClick) {
-    if (leftClick && field.className === 'field') {
-      if (field.className === 'field-flag') {
-        field.className = 'field';
-        field.isCorrect = false;
-      } else {
-        this.gameOver = true;
-        field.className = 'field-mine';
-      }
-    } else {
-      field.className = 'field-flag';
-      field.isCorrect = false;
-    }
-  }
-
-  createFields() {
-    for (let row = 0; row < this.rows; row += 1) {
-      const rowFields = [];
-      for (let col = 0; col < this.cols; col += 1) {
-        rowFields.push({
-          x: row,
-          y: col,
-          type: null,
-          clickable: true,
-          isCorrect: false,
-          className: 'field',
-          updated: false,
-        });
-      }
-      this.fields.push(rowFields);
-    }
-  }
-
-  setMines() {
+  private setMines = () => {
     const minePositions = [];
     while (minePositions.length < this.mineCount) {
-      const position = {
+      const pos = {
         x: _.random(0, this.rows - 1),
         y: _.random(0, this.cols - 1),
       };
-      if (!_.some(minePositions, position)) {
-        minePositions.push(position);
-        this.fields[position.x][position.y].type = 'mine';
+      if (!_.some(minePositions, pos)) {
+        minePositions.push(pos);
+        this.pieces[pos.x][pos.y] = new MinePiece(pos.x, pos.y, this);
       }
     }
-    this.setMineCounts(minePositions);
+    _.each(minePositions, this.setMineCounts);
   }
 
-  setMineCounts(minePositions) {
-    const delta = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
-    _.each(minePositions, ({ x, y }) => {
-      const neighbors = _.filter(_.map(delta, ([dX, dY]) => [x + dX, y + dY]), this.validPosition);
-      _.each(neighbors, ([pX, pY]) => {
-        const field = this.fields[pX][pY];
-        if (_.isNull(field.type)) {
-          field.type = 1;
-        } else if (_.isNumber(field.type)) {
-          field.type += 1;
-        }
-      });
+  private setMineCounts = (mine: Position) => {
+    const neighbours = this.getNeighbours(mine);
+    _.each(neighbours, ({ x, y }) => {
+      const piece = this.pieces[x][y];
+      if (piece instanceof EmptyPiece) {
+        this.pieces[x][y] = new NumberPiece(x, y, this);
+      } else if (piece instanceof NumberPiece) {
+        piece.increment();
+      }
     });
   }
 
-  validPosition([x, y]) {
-    return x >= 0 && x < this.rows && y >= 0 && y < this.cols;
+  private getNeighbours = (p: Position): Position[] => {
+    const delta = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+    const neighbours = _.map(delta, ([dX, dY]) => ({ x: p.x + dX, y: p.y + dY }));
+    return _.filter(neighbours, ({ x, y }) => x >= 0 && x < this.rows && y >= 0 && y < this.cols);
   }
 }
