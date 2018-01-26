@@ -17,6 +17,16 @@ services:
       context: .
       dockerfile: ./Dockerfile
     image: minesweeper
+    env_file: .env
     volumes:
       - .:/usr/src/app
     command: bash
+  
+  build:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: minesweeper
+    volumes:
+      - .:/usr/src/app
+    command: yarn build
