@@ -2,10 +2,11 @@
   "name": "minesweeper",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "src/index.ts",
   "scripts": {
+    "dev": "webpack-dev-server",
     "build": "webpack",
-    "lint": "eslint --ext .js src/"
+    "lint": "tslint --project ."
   },
   "keywords": [],
   "author": "ikim23",
@@ -14,30 +15,14 @@
     "lodash": "^4.17.4"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "eslint": "^4.15.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
+    "@types/lodash": "^4.14.96",
+    "fork-ts-checker-webpack-plugin": "^0.3.0",
     "path": "^0.12.7",
-    "webpack": "^3.10.0"
-  },
-  "eslintConfig": {
-    "extends": "airbnb-base"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "browsers": [
-              "last 2 versions"
-            ]
-          }
-        }
-      ]
-    ]
+    "ts-loader": "^3.3.1",
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.5.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
   }
 }
