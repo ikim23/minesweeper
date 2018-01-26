@@ -29,7 +29,7 @@ export default class Minesweeper {
     } else  if (piece instanceof EmptyPiece) {
       piece.leftClick();
       const neighbours = this.getNeighbours(p);
-      const clickable = _.filter(neighbours, ({x, y}) => this.pieces[x][y].isClickable);
+      const clickable = _.filter(neighbours, ({ x, y }) => this.pieces[x][y].isClickable);
       _.each(clickable, this.showAllEmpty);
     }
   }
@@ -42,7 +42,8 @@ export default class Minesweeper {
   }
 
   minesLeft = (): number => {
-    const flagCount = _.sumBy(_.flatten(this.pieces), piece => piece.visibleCssClass === 'field-flag' ? 1 : 0);
+    const pieces = _.flatten(this.pieces);
+    const flagCount = _.sumBy(pieces, piece => piece.visibleCssClass === 'field-flag' ? 1 : 0);
     return this.mineCount - flagCount;
   }
 
