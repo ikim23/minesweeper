@@ -1,28 +1,22 @@
-import * as _ from 'lodash';
+import { resize } from './dom/HeaderResize';
 import Minesweeper from './Minesweeper';
 import Board from './dom/Board';
 import MineCounter from './dom/MineCounter';
 import Clock from './dom/Clock';
 import GameStateListener from './dom/GameStateListener';
 
-const segments = document.getElementsByClassName('segment');
-const setSegmentSize = () => {
-  const scale = 26 / 46;
-  const width = window.innerWidth * 0.05;
-  _.each(segments, (segment) => {
-    segment.style.width = `${width}px`;
-    segment.style.height = `${width / scale}px`;
-  });
-};
-
-setSegmentSize();
-window.addEventListener('resize', setSegmentSize);
+resize();
 
 const board = new Board();
 const counter = new MineCounter();
 const clock = new Clock();
 const listener = new GameStateListener(counter, clock);
-const minesweeper = new Minesweeper(5, 10, listener);
+const minesweeper = new Minesweeper(listener);
+board.create(minesweeper.create(5, 10));
 
-board.create(minesweeper.pieces);
-clock.start();
+const smile = document.getElementById('smile');
+smile.addEventListener('click', () => {
+  clock.stop();
+  clock.draw();
+  board.create(minesweeper.create(5, 10));
+});
