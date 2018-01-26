@@ -1,6 +1,7 @@
 .field,
 .field-flag,
 .field-mine,
+.field-empty,
 .field-1,
 .field-2,
 .field-3,
@@ -24,6 +25,10 @@
 
 .field-mine {
   background-image: url('../svg/mine.svg');
+}
+
+.field-empty {
+  background-color: #bdbdbd;
 }
 
 .field-1 {
