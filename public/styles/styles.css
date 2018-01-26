@@ -9,6 +9,7 @@ body {
 
 #content {
   display: grid;
+  grid-template-columns: auto;
   grid-template-rows: auto auto;
 }
 
@@ -41,4 +42,3 @@ body {
   display: grid;
   background-color: var(--dark-gray);
 }
-

@@ -22,14 +22,14 @@ export default abstract class Piece {
   abstract leftClickImpl(): void;
 
   leftClick = () => {
-    if (this.isClickable && this.visibleCssClass === 'field') {
+    if (!this.minesweeper.gameOver && this.isClickable && this.visibleCssClass === 'field') {
       this.isClickable = false;
       this.leftClickImpl();
       this.listener.update(this);
     }
   }
   rightClick = () => {
-    if (this.isClickable) {
+    if (!this.minesweeper.gameOver && this.isClickable) {
       if (this.visibleCssClass === 'field') {
         this.visibleCssClass = 'field-flag';
       } else if (this.visibleCssClass === 'field-flag') {
