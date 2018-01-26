@@ -46,7 +46,8 @@
 .segment.num-9 .s3,
 .segment.num-9 .s4,
 .segment.num-9 .s6,
-.segment.num-9 .s7 {
+.segment.num-9 .s7,
+.segment.minus .s7 {
   fill: red;
 }
 
@@ -70,6 +71,19 @@
 .segment.num-7 .s5,
 .segment.num-7 .s6,
 .segment.num-7 .s7,
-.segment.num-9 .s5 {
+.segment.num-9 .s5,
+.segment.minus .s1,
+.segment.minus .s2,
+.segment.minus .s3,
+.segment.minus .s4,
+.segment.minus .s5,
+.segment.minus .s6,
+.segment.off .s1,
+.segment.off .s2,
+.segment.off .s3,
+.segment.off .s4,
+.segment.off .s5,
+.segment.off .s6,
+.segment.off .s7 {
   fill: transparent;
 }

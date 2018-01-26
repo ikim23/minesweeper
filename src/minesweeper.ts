@@ -3,6 +3,7 @@ import Piece from './pieces/Piece';
 import MinePiece from './pieces/MinePiece';
 import EmptyPiece from './pieces/EmptyPiece';
 import NumberPiece from './pieces/NumberPiece';
+import GameStateListener from './dom/GameStateListener';
 
 interface Position {
   x: number;
@@ -15,13 +16,16 @@ export default class Minesweeper {
   mineCount: number;
   pieces: Piece[][];
   gameOver: boolean;
+  listener: GameStateListener;
 
-  constructor(rows: number, cols: number) {
+  constructor(rows: number, cols: number, listener: GameStateListener) {
     this.rows = rows;
     this.cols = cols;
     this.mineCount = _.ceil(rows * cols * 0.12);
     this.gameOver = false;
+    this.listener = listener;
     this.create();
+    this.updateListener();
   }
 
   showAllEmpty = (p: Position) => {
@@ -33,6 +37,22 @@ export default class Minesweeper {
       const neighbours = this.getNeighbours(p);
       const clickable = _.filter(neighbours, ({x, y}) => this.pieces[x][y].isClickable);
       _.each(clickable, this.showAllEmpty);
+    }
+  }
+
+  updateListener = () => {
+    this.checkGameOver();
+    this.listener.update(this);
+  }
+
+  minesLeft = (): number => {
+    const flagCount = _.sumBy(_.flatten(this.pieces), piece => piece.visibleCssClass === 'field-flag' ? 1 : 0);
+    return this.mineCount - flagCount;
+  }
+
+  private checkGameOver = () => {
+    if (!this.gameOver) {
+      this.gameOver = _.every(_.flatten(this.pieces), piece => piece.isCorrent());
     }
   }
 
