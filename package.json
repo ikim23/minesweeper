@@ -2,6 +2,7 @@
   "name": "minesweeper",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://ikim23.github.io/minesweeper",
   "main": "src/index.ts",
   "scripts": {
     "dev": "webpack-dev-server",

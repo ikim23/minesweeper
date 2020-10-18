@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="public/styles/styles.css">
+  <link rel="stylesheet" href="public/styles/segment.css">
+  <link rel="stylesheet" href="public/styles/fields.css">
+  <title>Minesweeper</title>
+</head>
+<body>
+  <div id="content">
+    <div id="head">
+      <div id="mine-count">
+        <svg id="count-seg-3" class="segment"
+          viewBox="0 0 26 46" xmlns="http://www.w3.org/2000/svg">  
+          <rect fill="black" width="26" height="46"/>
+          <path class="s1" d="m 4,2 h 18 l -4,4 h -10 z"/>
+          <path class="s6" d="m 2,4 v 18 l 4,-4 v -10 z"/>
+          <path class="s2" d="m 24,4 v 18 l -4,-4 v -10 z"/>
+          <path class="s7" d="m 4,23 l 2,-2 h 14 l 2,2 l -2,2 h -14 z"/>
+          <path class="s5" d="m 2,24 v 18 l 4,-4 v -10 z"/>
+          <path class="s3" d="m 24,24 v 18 l -4,-4 v -10 z"/>
+          <path class="s4" d="m 4,44 h 18 l -4,-4 h -10 z"/>
+        </svg>
+        <svg id="count-seg-2" class="segment"
+          viewBox="0 0 26 46" xmlns="http://www.w3.org/2000/svg">  
+          <rect fill="black" width="26" height="46"/>
+          <path class="s1" d="m 4,2 h 18 l -4,4 h -10 z"/>
+          <path class="s6" d="m 2,4 v 18 l 4,-4 v -10 z"/>
+          <path class="s2" d="m 24,4 v 18 l -4,-4 v -10 z"/>
+          <path class="s7" d="m 4,23 l 2,-2 h 14 l 2,2 l -2,2 h -14 z"/>
+          <path class="s5" d="m 2,24 v 18 l 4,-4 v -10 z"/>
+          <path class="s3" d="m 24,24 v 18 l -4,-4 v -10 z"/>
+          <path class="s4" d="m 4,44 h 18 l -4,-4 h -10 z"/>
+        </svg>
+        <svg id="count-seg-1" class="segment"
+          viewBox="0 0 26 46" xmlns="http://www.w3.org/2000/svg">  
+          <rect fill="black" width="26" height="46"/>
+          <path class="s1" d="m 4,2 h 18 l -4,4 h -10 z"/>
+          <path class="s6" d="m 2,4 v 18 l 4,-4 v -10 z"/>
+          <path class="s2" d="m 24,4 v 18 l -4,-4 v -10 z"/>
+          <path class="s7" d="m 4,23 l 2,-2 h 14 l 2,2 l -2,2 h -14 z"/>
+          <path class="s5" d="m 2,24 v 18 l 4,-4 v -10 z"/>
+          <path class="s3" d="m 24,24 v 18 l -4,-4 v -10 z"/>
+          <path class="s4" d="m 4,44 h 18 l -4,-4 h -10 z"/>
+        </svg>
+      </div>
+      <div id="smile" class="smile"></div>
+      <div id="clock">
+        <svg id="clock-seg-3" class="segment"
+          viewBox="0 0 26 46" xmlns="http://www.w3.org/2000/svg">  
+          <rect fill="black" width="26" height="46"/>
+          <path class="s1" d="m 4,2 h 18 l -4,4 h -10 z"/>
+          <path class="s6" d="m 2,4 v 18 l 4,-4 v -10 z"/>
+          <path class="s2" d="m 24,4 v 18 l -4,-4 v -10 z"/>
+          <path class="s7" d="m 4,23 l 2,-2 h 14 l 2,2 l -2,2 h -14 z"/>
+          <path class="s5" d="m 2,24 v 18 l 4,-4 v -10 z"/>
+          <path class="s3" d="m 24,24 v 18 l -4,-4 v -10 z"/>
+          <path class="s4" d="m 4,44 h 18 l -4,-4 h -10 z"/>
+        </svg>
+        <svg id="clock-seg-2" class="segment"
+          viewBox="0 0 26 46" xmlns="http://www.w3.org/2000/svg">  
+          <rect fill="black" width="26" height="46"/>
+          <path class="s1" d="m 4,2 h 18 l -4,4 h -10 z"/>
+          <path class="s6" d="m 2,4 v 18 l 4,-4 v -10 z"/>
+          <path class="s2" d="m 24,4 v 18 l -4,-4 v -10 z"/>
+          <path class="s7" d="m 4,23 l 2,-2 h 14 l 2,2 l -2,2 h -14 z"/>
+          <path class="s5" d="m 2,24 v 18 l 4,-4 v -10 z"/>
+          <path class="s3" d="m 24,24 v 18 l -4,-4 v -10 z"/>
+          <path class="s4" d="m 4,44 h 18 l -4,-4 h -10 z"/>
+        </svg>
+        <svg id="clock-seg-1" class="segment"
+          viewBox="0 0 26 46" xmlns="http://www.w3.org/2000/svg">  
+          <rect fill="black" width="26" height="46"/>
+          <path class="s1" d="m 4,2 h 18 l -4,4 h -10 z"/>
+          <path class="s6" d="m 2,4 v 18 l 4,-4 v -10 z"/>
+          <path class="s2" d="m 24,4 v 18 l -4,-4 v -10 z"/>
+          <path class="s7" d="m 4,23 l 2,-2 h 14 l 2,2 l -2,2 h -14 z"/>
+          <path class="s5" d="m 2,24 v 18 l 4,-4 v -10 z"/>
+          <path class="s3" d="m 24,24 v 18 l -4,-4 v -10 z"/>
+          <path class="s4" d="m 4,44 h 18 l -4,-4 h -10 z"/>
+        </svg>
+      </div>
+    </div>
+    <div id="board">
+    </div>
+  </div>
+  <script src="static/bundle.js"></script>
+</body>
+</html>
